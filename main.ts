@@ -6,15 +6,15 @@ enum ActionKind {
 namespace SpriteKind {
     export const Gap = SpriteKind.create()
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Gap, function (sprite, otherSprite) {
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Gap, (sprite, otherSprite) => {
     if (otherSprite.right - sprite.left < 2) {
         info.changeScoreBy(1)
     }
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, (sprite, otherSprite) => {
     game.over(false)
 })
-controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
+controller.anyButton.onEvent(ControllerButtonEvent.Pressed,  () => {
     mySprite.vy = -100
     animation.setAction(mySprite, ActionKind.Jumping)
     mySprite.startEffect(effects.rings, 300)
@@ -158,7 +158,7 @@ anim.addAnimationFrame(img`
     . . . . . . . . . . . . . . . .
 `)
 animation.attachAnimation(mySprite, anim)
-game.onUpdateInterval(1500, function () {
+game.onUpdateInterval(1500,  () => {
     gap = Math.randomRange(0, 3)
     if (gap == 0) {
         topImage = img`
@@ -529,7 +529,7 @@ game.onUpdateInterval(1500, function () {
     projectile = sprites.createProjectileFromSide(bottomImage, -45, 0)
     projectile.bottom = scene.screenHeight()
 })
-game.onUpdate(function () {
+game.onUpdate( () => {
     if (mySprite.vy > 0) {
         animation.setAction(mySprite, ActionKind.Idle)
     }
